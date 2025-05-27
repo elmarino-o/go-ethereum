@@ -1,10 +1,6 @@
 name: CI Build
 'on':
-<<<<<<< HEAD:.github/workflows/ci-build.yml
-  workflow_dispatch: 
-=======
   workflow_dispatch: true
->>>>>>> master:.github/workflows/ci-build.yml_initial
   pull_request:
     types:
       - closed
@@ -18,8 +14,7 @@ jobs:
     if: >-
       github.event.pull_request.merged == true &&
       contains(github.event.pull_request.labels.*.name, 'CI:Build')
-    runs-on:
-      - self-hosted
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -46,21 +41,6 @@ jobs:
           name: image-tag
           path: |
             ${{ env.IMAGE_NAME }}
-<<<<<<< HEAD:.github/workflows/ci-build.yml
-      - name: Trigger Devnet Setup
-        uses: actions/github-script@v6
-        with: 
-        script: |
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: 'ci-devnet.yml',
-            ref: context.ref,
-            inputs: {
-              image_tag: '${{ env.IMAGE_NAME }}'
-            }
-          })
-=======
       - name: Create Docker Compose File
         run: |
           echo 'version: "3.8"
@@ -77,5 +57,4 @@ jobs:
           git add ./docker-compose.devnet.yml
           git commit -m "Update docker-compose.devnet.yml with new image"
           git push
->>>>>>> master:.github/workflows/ci-build.yml_initial
 
