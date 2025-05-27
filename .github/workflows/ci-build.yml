@@ -1,10 +1,6 @@
 name: CI Build
 'on':
-<<<<<<< HEAD:.github/workflows/ci-build.yml
   workflow_dispatch: 
-=======
-  workflow_dispatch: true
->>>>>>> master:.github/workflows/ci-build.yml_initial
   pull_request:
     types:
       - closed
@@ -46,7 +42,6 @@ jobs:
           name: image-tag
           path: |
             ${{ env.IMAGE_NAME }}
-<<<<<<< HEAD:.github/workflows/ci-build.yml
       - name: Trigger Devnet Setup
         uses: actions/github-script@v6
         with: 
@@ -60,22 +55,4 @@ jobs:
               image_tag: '${{ env.IMAGE_NAME }}'
             }
           })
-=======
-      - name: Create Docker Compose File
-        run: |
-          echo 'version: "3.8"
-          services:
-            devnet:
-              image: ghcr.io/${{ github.repository_owner }}/go-ethereum:${{
-          github.sha }}
-              ports:
-                - "8545:8545"' > ./docker-compose.devnet.yml
-      - name: Commit Updated Docker Compose
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add ./docker-compose.devnet.yml
-          git commit -m "Update docker-compose.devnet.yml with new image"
-          git push
->>>>>>> master:.github/workflows/ci-build.yml_initial
 
