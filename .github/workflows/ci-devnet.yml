@@ -8,7 +8,8 @@ name: CI Devnet Setup
         default: 'ghcr.io/elmarino-o/go-ethereum:latest'
 jobs:
   setup-devnet:
-    runs-on: ubuntu-latest
+    runs-on: 
+      - self-hosted
     steps:
       - uses: actions/checkout@v4
       - name: Download Image Tag

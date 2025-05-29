@@ -2,10 +2,13 @@ name: i386 linux tests
 
 on:
   push:
-    branches: [ master ]
+    branches-ignore: ['*'] # explicitly disable push requests, please delete after
+    # branches: [ master ] # disabled pushes for homework purpose, please uncomment after
   pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    types: [closed] # added by elmarino-o for homework purpose, please delete after
+    # branches: [ master ] # disabled PRs for homework purpose, please uncomment after
+    branches-ignore: ['*'] # explicitly disable PRs, please delete after
+  workflow_dispatch: # is part of the initial code, no change by elmarino-o
 
 jobs:
   lint:

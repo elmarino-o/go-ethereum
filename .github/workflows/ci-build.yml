@@ -1,25 +1,30 @@
 name: CI Build
 'on':
-  workflow_dispatch:
   pull_request:
     types:
       - closed
+      - labeled
     branches:
       - master
   push:
     branches-ignore:
       - '*'
+  workflow_dispatch:
 jobs:
   build:
-    if: >-
-      github.event.pull_request.merged == true &&
-      contains(github.event.pull_request.labels.*.name, 'CI:Build')
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.action == 'closed' && github.event.pull_request.merged) ||
+      (github.event.action == 'labeled' && 
+       github.event.label.name == 'CI:Build' &&
+       github.event.pull_request.state == 'open')
     runs-on:
       - self-hosted
     permissions:
       contents: read
       packages: write
     steps:
+      - echo: "Triggered by: ${{ github.event_name }} (Action: ${{ github.event.action }})"
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v2
       - name: Login to GHCR
