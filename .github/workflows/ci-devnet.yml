@@ -8,7 +8,7 @@ name: CI Devnet Setup
         default: 'ghcr.io/elmarino-o/go-ethereum:latest'
 jobs:
   setup-devnet:
-    runs-on: 
+    runs-on:
       - self-hosted
     steps:
       - uses: actions/checkout@v4
@@ -36,4 +36,3 @@ jobs:
           git add ./docker-compose.devnet.yml
           git commit -m "Update docker-compose.devnet.yml with new image"
           git push
-
