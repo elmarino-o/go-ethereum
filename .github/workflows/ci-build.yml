@@ -61,5 +61,4 @@ jobs:
               ref: context.ref,
               inputs: {
                 image_tag: '${{ env.IMAGE_NAME }}'
-            }
-          })
+            }})
